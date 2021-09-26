@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Опрос</title>
+    <link rel="shortcut icon" href="https://www.flaticon.com/premium-icon/icons/svg/3906/3906541.svg">
+</head>
+<style>
+    input:required:valid{
+        border-color: green;
+    }
+</style>
+
+<body>
+    <form id="formElem" >
+        <h1>Опрос для счастливых обладателей котиков</h1>
+        <div>
+            <label for="name"  >Кличка питомца</label>
+            <input type="text" id="name" required />*
+        </div>
+        <div>
+            <label for="name2">Имя владельца</label>
+            <input type="text" id="name2" required />*
+        </div>
+        <div>
+            <label for="phone">Номер телефона</label>
+            <input type="tel" id="phone" minlength="10" maxlength="20" />*
+        </div>
+        <div>
+            <label>Выберите породу питомца</label>*
+            <select required >
+                <option абиссинская="1">Абиcсинская кошка</option>
+                <option сиамская="2">Сиамская кошка</option>
+                <option мейн-кун="3">Мейн-кун</option>
+                <option сфинкс="4">Сфинкс</option>
+                <option сибирская="5">Сибирская кошка</option>
+                <option британская="6">Британская кошка</option>
+                <option рэгдолл="7">Рэгдолл</option>
+                <option бенгальская="8">Бенгальская кошка</option>
+            </select>
+        </div>
+
+        <p> Чем питается питомец *</p>
+        <div>
+            <input type="checkbox" id="eat" />
+            <label for="eat"> Сухой корм</label>
+        </div>
+        <div>
+            <input type="checkbox" id="eat" />
+            <label for="eat">Влажный корм</label>
+        </div>
+        <div>
+            <input type="checkbox" id="eat" />
+            <label for="eat">Натуральный корм</label>
+        </div>
+        <p>Выберите пол питомца *</p>
+        <div>
+            <input type="radio" id="female" name="sex" value="female">
+            <label for="female">Самка</label>
+        </div>
+        <div>
+            <input type="radio" id="female" name="sex" value="female">
+            <label for="female">Самец</label>
+        </div>
+        <div>
+            Комментарий владельца
+            <br> <textarea rows="10"></textarea>
+        </div>
+        <div>
+            Прикрепите фото питомца
+            <input type="file" required />*
+        </div>
+        <div>
+            <button id="postButton" type="submit" >Сохранить</button>
+        </div>
+
+    </form>
+    <script>
+        postButton.onclick = function(event) {
+           event.preventDefault();
+
+           fetch("https://httpbin.org/post",
+             {
+                 method: 'POST',
+                 body: new FormData(formElem),
+                 headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                },
+             })
+             .then(response => response.json())
+             .then(user => {
+                 console.log(user);
+             })
+             .catch(error => console.log(error));
+       }
+    </script>
+</body>
+
+</html>

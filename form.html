@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            margin-left: auto;
+            margin-right: auto;
+            width: 25rem;
+
+            border: 1px solid black;
+            object-fit: cover;
+            text-align: center;
+        }
+
+        #errorMessage {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Регистрация</h1>
+        <div>
+            <label for="name">Имя</label> <br>
+            <input type="text" id="name" class="test" placeholder="Введите ваше имя" /></div>
+        <div>
+            <label for="name2">Фамилия</label><br>
+            <input type="text" id="name2" class="test" placeholder="Введите вашу фамилию" /></div>
+        <div>
+            <label for="login">Придумайте логин</label><br>
+            <input type="text" id="login" class="test"  placeholder="Придумайте логин" /></div>
+        <div>
+            <label for="password">Придумайте пароль</label><br>
+            <input type="password" id="password" class="test" placeholder="Придумайте пароль" /></div>
+        <div>
+            <label for="password2">Повторите пароль</label><br>
+            <input type="password" id="password2" class="test" placeholder="Повторите пароль" /></div>
+        <div>
+            <label for="number">Номер телефона</label><br>
+            <input type="text" id="number" class="test"  placeholder="Введите номер телефона" /></div>
+        <div id="errorsInfo"></div>
+        <div><button id="postButton" type="submit" >Зарегестрироваться</button>
+            <div>Нажимая кнопку "Зарегестрироваться":</div>
+            <div><input type="checkbox">Я принимаю условия <a href="#"> пользовательского соглашения</a></div>
+        </div>
+    </div>
+   <script>
+       postButton.onclick = function(event) {
+           event.preventDefault();
+
+           let user = {
+               name: document.getElementById("name").value,
+               surname: document.getElementById("name2").value,
+               login : document.getElementById("login").value,
+               password: document.getElementById("password").value,
+               number: document.getElementById("number").value,
+           }
+           fetch("https://httpbin.org/post",
+             {
+                 method: 'POST',
+                 body: JSON.stringify(user),
+                 headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+             })
+             .then(response => response.json())
+             .then(user => {
+                 console.log(user);
+             })
+             .catch(error => console.log(error));
+       }
+   </script>
+</body>
+
+</html>
