@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+</head>
+<body>
+    <div>
+        Поиск
+        <input type="text" id="gifSearch" >
+        <button onclick="onSearch()" >Искать!</button>
+    </div>
+    <img src="" id="gif" >
+    <img src="" id="gif1">
+    <img src="" id="gif2">
+    <img src="" id="gif3">
+    <img src="" id="gif4">
+    <img src="" id="gif5">
+    <script>
+        function onSearch(){
+            let gifImage = document.getElementById("gifSearch").value;
+
+            fetch("https://api.giphy.com/v1/gifs/search?api_key=Fc1tYW72fOrJvz2coldGBwJY9e0FTbUK&q="+ gifImage +"&limit=5&offset=0&rating=g&lang=en")
+            .then(response => response.json()) 
+            .then(response => {
+              console.log(response)
+                document.getElementById('gif').src = response.data[0].images.downsized_medium.url;
+                document.getElementById('gif1').src = response.data[1].images.downsized_medium.url;
+                document.getElementById('gif2').src = response.data[2].images.downsized_medium.url;
+                document.getElementById('gif3').src = response.data[3].images.downsized_medium.url;
+                document.getElementById('gif4').src = response.data[4].images.downsized_medium.url;
+
+            })
+              .catch(error => console.log(error));
+            
+        }
+        
+    </script>
+    
+</body>
+</html>
