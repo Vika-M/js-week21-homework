@@ -21,7 +21,7 @@
     <script>
         function onSearch(){
             let gifImage = document.getElementById("gifSearch").value;
-
+            
             fetch("https://api.giphy.com/v1/gifs/search?api_key=Fc1tYW72fOrJvz2coldGBwJY9e0FTbUK&q="+ gifImage +"&limit=5&offset=0&rating=g&lang=en")
             .then(response => response.json()) 
             .then(response => {
@@ -33,7 +33,11 @@
                 document.getElementById('gif4').src = response.data[4].images.downsized_medium.url;
 
             })
-              .catch(error => console.log(error));
+              .catch((error) => {
+    if(!navigator.onLine) {
+      alert('no internet connection'); // обработка ошибки при отсутствии интернета
+    }
+  })
             
         }
         
